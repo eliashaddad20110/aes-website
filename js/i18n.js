@@ -1127,8 +1127,36 @@
     return v;
   }
 
+  var enCache = null;
+
+  function cacheEnglish() {
+    if (enCache) return;
+    var i, nodes, text = [], html = [];
+    nodes = document.querySelectorAll('[data-i18n]');
+    for (i = 0; i < nodes.length; i++) text.push(nodes[i].innerHTML);
+    nodes = document.querySelectorAll('[data-i18n-html]');
+    for (i = 0; i < nodes.length; i++) html.push(nodes[i].innerHTML);
+    enCache = { text: text, html: html, title: document.title };
+  }
+
+  function restoreEnglish() {
+    if (!enCache) return;
+    var i, nodes;
+    nodes = document.querySelectorAll('[data-i18n]');
+    for (i = 0; i < nodes.length && i < enCache.text.length; i++) {
+      if (nodes[i].innerHTML !== enCache.text[i]) nodes[i].innerHTML = enCache.text[i];
+    }
+    nodes = document.querySelectorAll('[data-i18n-html]');
+    for (i = 0; i < nodes.length && i < enCache.html.length; i++) {
+      if (nodes[i].innerHTML !== enCache.html[i]) nodes[i].innerHTML = enCache.html[i];
+    }
+    document.title = enCache.title;
+    var y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+  }
+
   function applyText() {
-    if (current === 'en') return; /* English is already in the markup */
+    if (current === 'en') { restoreEnglish(); return; }
     var nodes = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < nodes.length; i++) {
       var key = nodes[i].getAttribute('data-i18n');
@@ -1140,7 +1168,7 @@
   }
 
   function applyHtml() {
-    if (current === 'en') return;
+    if (current === 'en') return; /* restored by applyText() */
     var nodes = document.querySelectorAll('[data-i18n-html]');
     for (var i = 0; i < nodes.length; i++) {
       var key = nodes[i].getAttribute('data-i18n-html');
@@ -1170,7 +1198,7 @@
   }
 
   function applyTitle() {
-    if (current === 'en') return;
+    if (current === 'en') return; /* restored by applyText() */
     var file = window.location.pathname.split('/').pop() || 'index.html';
     if (file === '') file = 'index.html';
     var cls = file.replace('.html', '').replace(/[^a-z0-9]/gi, '').toLowerCase();
@@ -1247,6 +1275,7 @@
     dict: DICT
   };
 
+  cacheEnglish(); /* capture English markup before any translation mutates it */
   apply();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', wireToolbar);
