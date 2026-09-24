@@ -1,0 +1,263 @@
+(function () {
+  'use strict';
+
+  var cfg = (window.AES || {}).contact || {};
+  var ann = (window.AES || {}).announcement || {};
+  var LOG_KEY = 'aesContactLog';
+
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+
+  /* ---------- Menu overlay ---------- */
+  var navToggle = $('#navToggle');
+  var menuOverlay = $('#menuOverlay');
+  var menuClose = $('#menuClose');
+
+  function setMenu(open) {
+    if (!menuOverlay) return;
+    menuOverlay.classList.toggle('is-open', open);
+    if (navToggle) { navToggle.setAttribute('aria-expanded', String(open)); }
+  }
+  if (navToggle && menuOverlay) {
+    navToggle.addEventListener('click', function () { setMenu(true); });
+    if (menuClose) menuClose.addEventListener('click', function () { setMenu(false); });
+    menuOverlay.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menuOverlay.classList.contains('is-open')) { setMenu(false); if (navToggle) navToggle.focus(); }
+    });
+  }
+
+  /* ---------- Announcement bar ---------- */
+  function renderAnnouncement() {
+    var text = ann.text;
+    var href = ann.href;
+    var enabled = !!ann.enabled;
+    try {
+      var prev = JSON.parse(localStorage.getItem('aesAnnouncePreview') || 'null');
+      if (prev && prev.text) { text = prev.text; href = prev.href || ''; enabled = !!text; }
+    } catch (e) {}
+    if (!enabled || !text) return;
+    var el = document.createElement('a');
+    el.className = 'announcement-bar';
+    el.textContent = text;
+    if (href) el.setAttribute('href', href);
+    el.setAttribute('role', 'banner');
+    document.body.insertBefore(el, document.body.firstChild);
+  }
+  renderAnnouncement();
+
+  /* ---------- Hero slider ---------- */
+  function buildHeroSlider(scope) {
+    var root = $(scope);
+    if (!root) return;
+    var slides = $$('.hero-slide', root);
+    if (slides.length < 2) { slides.forEach(function (s) { s.classList.add('is-active'); }); return; }
+    var dotsWrap = $('.hero-dots', root);
+    var idx = 0, timer = null;
+    root.classList.add('transition');
+    slides.forEach(function (s, i) {
+      s.classList.toggle('is-active', i === 0);
+      if (dotsWrap) {
+        var b = document.createElement('button');
+        b.setAttribute('aria-label', 'Slide ' + (i + 1));
+        if (i === 0) b.classList.add('is-active');
+        b.addEventListener('click', function () { go(i); restart(); });
+        dotsWrap.appendChild(b);
+      }
+    });
+    function go(i) {
+      idx = (i + slides.length) % slides.length;
+      slides.forEach(function (s, j) { s.classList.toggle('is-active', j === idx); });
+      if (dotsWrap) $$('button', dotsWrap).forEach(function (b, j) { b.classList.toggle('is-active', j === idx); });
+    }
+    function next() { go(idx + 1); }
+    function prev() { go(idx - 1); }
+    function restart() { stop(); timer = setInterval(next, 6000); }
+    function stop() { if (timer) clearInterval(timer); }
+    var pBtn = $('.hero-prev', root), nBtn = $('.hero-next', root);
+    if (pBtn) pBtn.addEventListener('click', function () { prev(); restart(); });
+    if (nBtn) nBtn.addEventListener('click', function () { next(); restart(); });
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', restart);
+    restart();
+  }
+
+  /* ---------- Feature slider (auto-rotating) ---------- */
+  function buildFeatureSlider(root) {
+    if (!root) return;
+    var slides = $$('.feature-slide', root);
+    if (slides.length < 2) { slides.forEach(function (s) { s.classList.add('is-active'); }); return; }
+    var thumbs = $('.f-thumbs', root);
+    var idx = 0, timer = null;
+    function show(i) {
+      idx = (i + slides.length) % slides.length;
+      slides.forEach(function (s, j) { s.classList.toggle('is-active', j === idx); });
+      if (thumbs) $$('button', thumbs).forEach(function (b, j) { b.classList.toggle('is-active', j === idx); });
+    }
+    function next() { show(idx + 1); }
+    function restart() { stop(); timer = setInterval(next, 5500); }
+    function stop() { if (timer) clearInterval(timer); }
+    slides.forEach(function (s, i) {
+      s.classList.toggle('is-active', i === 0);
+      if (thumbs) {
+        var b = document.createElement('button');
+        b.setAttribute('aria-label', 'Show image ' + (i + 1));
+        if (i === 0) b.classList.add('is-active');
+        b.addEventListener('click', function () { show(i); restart(); });
+        thumbs.appendChild(b);
+      }
+    });
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', restart);
+    restart();
+  }
+
+  buildHeroSlider('.hero-slider');
+  $$('[data-feature-slider]').forEach(buildFeatureSlider);
+
+  /* ---------- Tabs ---------- */
+  $$('[data-tabs]').forEach(function (wrap) {
+    var buttons = $$('.tab-list button', wrap);
+    var panes = $$('.tab-pane', wrap);
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-tab');
+        buttons.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+        panes.forEach(function (p) { p.classList.toggle('is-active', p.id === target); });
+      });
+    });
+  });
+
+  /* ---------- Gallery lightbox ---------- */
+  var gallery = $('#gallery');
+  var lightbox = $('#lightbox');
+  if (gallery && lightbox) {
+    var items = $$('.gallery-item', gallery);
+    var lbImg = $('.lb-img', lightbox);
+    var lbCap = $('.lb-caption', lightbox);
+    var idx = 0;
+    function open(i) {
+      if (!items.length) return;
+      idx = (i + items.length) % items.length;
+      var img = $('img', items[idx]);
+      var cap = $('figcaption', items[idx]);
+      lbImg.src = img.getAttribute('src');
+      lbImg.alt = img.alt;
+      lbCap.textContent = cap ? cap.textContent : img.alt;
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+    items.forEach(function (it, i) { it.addEventListener('click', function () { open(i); }); });
+    $('.lb-close', lightbox).addEventListener('click', close);
+    $('.lb-prev', lightbox).addEventListener('click', function (e) { e.stopPropagation(); open(idx - 1); });
+    $('.lb-next', lightbox).addEventListener('click', function (e) { e.stopPropagation(); open(idx + 1); });
+    lightbox.addEventListener('click', function (e) { if (e.target === lightbox) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') open(idx - 1);
+      if (e.key === 'ArrowRight') open(idx + 1);
+    });
+  }
+
+  /* ---------- Contact form ---------- */
+  var contactForm = $('#contactForm');
+  if (contactForm) {
+    var statusEl = $('#formStatus');
+
+    function logMessage(entry) {
+      try {
+        var log = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
+        log.push(entry);
+        if (log.length > 500) log = log.slice(-500);
+        localStorage.setItem(LOG_KEY, JSON.stringify(log));
+      } catch (e) {}
+    }
+
+    function setStatus(msg, ok) {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      statusEl.className = 'form-status' + (ok === false ? ' is-error' : ok === true ? ' is-ok' : '');
+      statusEl.hidden = false;
+    }
+
+    function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var gotcha = $('#fGotcha', contactForm);
+      if (gotcha && gotcha.value) {
+        setStatus('Thanks! Your message has been received.', true);
+        contactForm.reset();
+        return;
+      }
+      var name = $('#fName', contactForm).value.trim();
+      var email = $('#fEmail', contactForm).value.trim();
+      var msg = $('#fMsg', contactForm).value.trim();
+      if (!name) { setStatus('Please add your name.', false); $('#fName', contactForm).focus(); return; }
+      if (!isValidEmail(email)) { setStatus('Please add a valid email address.', false); $('#fEmail', contactForm).focus(); return; }
+      if (msg.length < 5) { setStatus('Please write a short message.', false); $('#fMsg', contactForm).focus(); return; }
+      if (msg.length > 5000) { setStatus('That message is too long (max 5000 characters).', false); return; }
+
+      var btn = contactForm.querySelector('button[type="submit"]');
+      var entry = {
+        id: 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+        ts: Date.now(),
+        name: name,
+        email: email,
+        message: msg,
+        page: location.pathname.split('/').pop() || 'index.html',
+        status: 'queued'
+      };
+
+      var subject = (cfg.subjectPrefix || 'AES website') + ' enquiry from ' + name;
+      var body = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + msg;
+
+      function openMailto() {
+        window.location.href = 'mailto:' + (cfg.email || 'info@aeschool.org') +
+          '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      }
+
+      if (cfg.endpoint) {
+        setStatus('Sending…', null);
+        fetch(cfg.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ name: name, email: email, message: msg, _subject: subject })
+        }).then(function (r) {
+          if (r.ok) {
+            entry.status = 'sent via endpoint';
+            logMessage(entry);
+            setStatus('Thank you, ' + name + '. Your message has been sent.', true);
+            contactForm.reset();
+          } else {
+            entry.status = 'endpoint failed (mailto fallback)';
+            logMessage(entry);
+            openMailto();
+            setStatus('Your message could not be submitted online. Your email app is opening instead — just press send.', false);
+          }
+        }).catch(function () {
+          entry.status = 'offline (mailto fallback)';
+          logMessage(entry);
+          openMailto();
+          setStatus('Your email app is opening with your message — just press send.', false);
+        });
+      } else {
+        entry.status = 'opened in email app';
+        logMessage(entry);
+        openMailto();
+        setStatus('Opening your email app with your message…', null);
+      }
+    });
+  }
+
+  /* ---------- Footer year ---------- */
+  var year = $('#year');
+  if (year) year.textContent = new Date().getFullYear();
+})();

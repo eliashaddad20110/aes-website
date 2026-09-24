@@ -1,0 +1,35 @@
+# ---- Transport Security ----
+# Force HTTPS + HSTS (requires valid TLS cert configured at the host)
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+# ---- Content/Caching ----
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "DENY"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+Header always set Cross-Origin-Opener-Policy "same-origin"
+
+# Content-Security-Policy:
+#  - all JS/CSS/images/fonts are self-hosted (no inline scripts/styles)
+#  - Google Fonts, YouTube (privacy embedded) and the Google Map are allowed
+#  - optional contact-form backends (Formspree/Web3Forms) are pre-allowed
+Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; form-action 'self' https://api.formspree.io https://formspree.io https://web3forms.com; frame-ancestors 'none'; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; img-src 'self' data: https:; style-src 'self' https://fonts.googleapis.com; script-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.formspree.io https://formspree.io https://web3forms.com; object-src 'none'; upgrade-insecure-requests"
+
+# ---- HTTPS redirect ----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---- Sensitive files: never served ----
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|env|json|lock|md)$">
+  Require all denied
+</FilesMatch>
+
+# ---- Friendly 404 ----
+ErrorDocument 404 /404.html
+
+# Disable server signature
+ServerSignature Off
+ServerTokens Prod

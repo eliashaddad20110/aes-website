@@ -1,0 +1,28 @@
+# Protect the entire admin area with HTTP Basic Auth (Apache only).
+# Credentials live alongside this file in ./admin/.htpasswd.
+#
+# IMPORTANT: replace the AuthUserFile path below with the absolute path to
+# .htpasswd on YOUR server (your hosting control panel shows the path under
+# "File Manager" -> right-click -> Properties, or in cPanel as
+# /home/<your-user>/public_html/admin/.htpasswd).
+#
+# On Nginx / Netlify / Cloudflare Pages this file is ignored; the JS login
+# inside index.html takes over instead.
+AuthType Basic
+AuthName "AES Staff Area"
+AuthUserFile "/home/aes/public_html/admin/.htpasswd"
+Require valid-user
+
+# Never list directory contents
+Options -Indexes
+
+<FilesMatch "\.(htaccess|htpasswd)$">
+  Require all denied
+</FilesMatch>
+
+# Force HTTPS within the admin area too
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>

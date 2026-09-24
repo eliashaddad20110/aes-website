@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /css/
+Disallow: /js/
+
+# sitemap: https://www.YOUR-DOMAIN.com/sitemap.xml
+
+# 404 page is intentionally indexable-neutral (meta noindex in the file itself).

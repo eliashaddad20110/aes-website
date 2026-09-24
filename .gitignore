@@ -1,0 +1,41 @@
+# ── Credentials & admin secrets ──────────────────────────────────────────
+# Apache Basic-Auth password file (real admin credentials). Regenerate with
+# the admin Security tab or htpasswd, and re-create on the server.
+admin/.htpasswd
+
+# ── Backup archives / copied snapshots (never commit) ────────────────────
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.bak
+*.old
+*.orig
+*.tmp
+*.swp
+*~
+
+# ── Logs & dumps ─────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Environment / secrets files ──────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── OS cruft ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Tooling ──────────────────────────────────────────────────────────────
+node_modules/
+.vscode/
+.idea/
+*.code-workspace
