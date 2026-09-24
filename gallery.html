@@ -15,13 +15,28 @@
   <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700;800;900&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/i18n.js" defer></script>
   <script src="js/config.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link" href="#main" data-i18n="skip_main">Skip to main content</a>
+
+  <div class="aes-toolbar">
+    <div class="aes-toolbar-inner container">
+      <div class="aes-lang" role="group" aria-label="Choose language">
+        <button type="button" class="aes-lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="aes-lang-btn" data-lang="ar" aria-pressed="false">AR</button>
+        <button type="button" class="aes-lang-btn" data-lang="de" aria-pressed="false">DE</button>
+      </div>
+      <div class="aes-fs" role="group" aria-label="Text size">
+        <button type="button" class="aes-fs-btn" id="fsDown" aria-label="Decrease text size">A&minus;</button>
+        <button type="button" class="aes-fs-btn" id="fsUp" aria-label="Increase text size">A+</button>
+      </div>
+    </div>
+  </div>
 
   <header class="site-header" id="top">
     <div class="container header-inner">
@@ -29,15 +44,15 @@
         <img src="images/logo.png" alt="">
         <span class="brand-name">
           <strong>Arab Episcopal School</strong>
-          <small>Irbid &middot; Jordan</small>
+          <small data-i18n="brand_sub">Irbid &middot; Jordan</small>
         </span>
       </a>
       <div class="header-toplinks">
         <ul>
-          <li><a href="admission.html">Inquire</a></li>
-          <li><a href="contact.html">Visit</a></li>
-          <li><a href="gallery.html#video">Videos</a></li>
-          <li><a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+          <li><a href="admission.html" data-i18n="top_inquire">Inquire</a></li>
+          <li><a href="contact.html" data-i18n="top_visit">Visit</a></li>
+          <li><a href="gallery.html#video" data-i18n="top_videos">Videos</a></li>
+          <li><a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer" data-i18n="top_facebook">Facebook</a></li>
         </ul>
       </div>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="menuOverlay" aria-label="Open menu">
@@ -52,39 +67,39 @@
     <div class="menu-overlay-head">
       <span class="brand-name">
         <strong>Arab Episcopal School</strong>
-        <small>Irbid &middot; Jordan</small>
+        <small data-i18n="brand_sub">Irbid &middot; Jordan</small>
       </span>
       <button class="menu-close" id="menuClose" type="button" aria-label="Close menu">&times;</button>
     </div>
     <div class="menu-cols">
       <div class="menu-col">
-        <h4 class="menu-col-title">We Believe</h4>
+        <h4 class="menu-col-title" data-i18n="menu_col_believe">We Believe</h4>
         <ul>
-          <li><a href="about.html">About AES</a></li>
-          <li><a href="mission.html">Mission &amp; Values</a></li>
-          <li><a href="admission.html">Admissions</a></li>
-          <li><a href="admission.html#involved">Get Involved</a></li>
-          <li><a href="gallery.html">Life at AES</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html" data-i18n="nav_about">About AES</a></li>
+          <li><a href="mission.html" data-i18n="nav_mission">Mission &amp; Values</a></li>
+          <li><a href="admission.html" data-i18n="nav_admissions">Admissions</a></li>
+          <li><a href="admission.html#involved" data-i18n="nav_involved">Get Involved</a></li>
+          <li><a href="gallery.html" data-i18n="nav_life">Life at AES</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
         </ul>
       </div>
       <div class="menu-col">
-        <h4 class="menu-col-title">Divisions</h4>
+        <h4 class="menu-col-title" data-i18n="menu_col_div">Divisions</h4>
         <ul>
-          <li><a href="divisions.html#kindergarten">Kindergarten</a></li>
-          <li><a href="divisions.html#elementary">Elementary School</a></li>
-          <li><a href="divisions.html#secondary">Middle &amp; Secondary</a></li>
-          <li><a href="divisions.html#support">Vision Support Program</a></li>
+          <li><a href="divisions.html#kindergarten" data-i18n="menu_div_kind">Kindergarten</a></li>
+          <li><a href="divisions.html#elementary" data-i18n="menu_div_elem">Elementary School</a></li>
+          <li><a href="divisions.html#secondary" data-i18n="menu_div_sec">Middle &amp; Secondary</a></li>
+          <li><a href="divisions.html#support" data-i18n="menu_div_support">Vision Support Program</a></li>
         </ul>
       </div>
       <div class="menu-col">
-        <h4 class="menu-col-title">Quick Links</h4>
+        <h4 class="menu-col-title" data-i18n="menu_col_quick">Quick Links</h4>
         <ul>
-          <li><a href="gallery.html#video">Video Tour</a></li>
-          <li><a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-          <li><a href="admission.html#donate">Donate</a></li>
-          <li><a href="admission.html#volunteer">Volunteer</a></li>
-          <li><a href="mission.html">Our Mission</a></li>
+          <li><a href="gallery.html#video" data-i18n="menu_video">Video Tour</a></li>
+          <li><a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer" data-i18n="top_facebook">Facebook</a></li>
+          <li><a href="admission.html#donate" data-i18n="menu_donate">Donate</a></li>
+          <li><a href="admission.html#volunteer" data-i18n="menu_volunteer">Volunteer</a></li>
+          <li><a href="mission.html" data-i18n="menu_mission">Our Mission</a></li>
         </ul>
       </div>
     </div>
@@ -93,10 +108,10 @@
   <main id="main">
     <section class="page-hero">
       <div class="container">
-        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Gallery &amp; Videos</p>
-        <p class="eyebrow">School Life</p>
-        <h1>Life at AES</h1>
-        <p class="sub">A photo and video window into our classrooms, our celebrations, and our trips
+        <p class="breadcrumb"><a href="index.html" data-i18n="bc_home">Home</a> &rsaquo; <span data-i18n="gallery_tag">Gallery &amp; Videos</span></p>
+        <p class="eyebrow" data-i18n="gallery_tag">School Life</p>
+        <h1 data-i18n="gallery_h1">Life at AES</h1>
+        <p class="sub" data-i18n="gallery_sub">A photo and video window into our classrooms, our celebrations, and our trips
           across Jordan. Click any photo to view it larger.</p>
       </div>
     </section>
@@ -105,22 +120,22 @@
     <section class="section" id="video" aria-labelledby="video-title">
       <div class="container two-col">
         <div class="prose">
-          <p class="eyebrow">Watch</p>
-          <h2 id="video-title">The video tour of AES</h2>
+          <p class="eyebrow" data-i18n="watch_eyebrow">Watch</p>
+          <h2 id="video-title" data-i18n="watch_h2">The video tour of AES</h2>
           <p>This video walks you through the school — an overview of how we integrate blind, low-vision
             and sighted students in our classrooms.</p>
           <ul class="tick-list">
-            <li>An inside look at daily classroom life.</li>
-            <li>See integration in practice, not just in words.</li>
-            <li>More recent videos appear on our Facebook page.</li>
+            <li data-i18n="video_tick1">An inside look at daily classroom life.</li>
+            <li data-i18n="video_tick2">See integration in practice, not just in words.</li>
+            <li data-i18n="video_tick3">More recent videos appear on our Facebook page.</li>
           </ul>
           <p class="mt-s">
-            <a class="btn btn-primary" href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer">Videos on Facebook</a>
-            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=LhKx57SuCsM" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            <a class="btn btn-primary" href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer" data-i18n="btn_fb_videos">Videos on Facebook</a>
+            <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=LhKx57SuCsM" target="_blank" rel="noopener noreferrer" data-i18n="btn_youtube">Watch on YouTube</a>
           </p>
         </div>
         <div class="video-frame">
-          <iframe src="https://www.youtube-nocookie.com/embed/LhKx57SuCsM" title="Video Tour of Arab Episcopal School"
+          <iframe src="https://www.youtube-nocookie.com/embed/LhKx57SuCsM" title="Video Tour of Arab Episcopal School" data-i18n-title="video_iframe_title"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
         </div>
@@ -131,113 +146,113 @@
     <section class="section section-tint" aria-labelledby="gallery-title">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Photo Gallery</p>
-          <h2 id="gallery-title">Moments from the school year</h2>
+          <p class="eyebrow" data-i18n="photo_eyebrow">Photo Gallery</p>
+          <h2 id="gallery-title" data-i18n="photo_h2">Moments from the school year</h2>
         </div>
         <div class="gallery-grid" id="gallery">
           <figure class="gallery-item">
             <img src="images/kindergarten.jpg" alt="Our kindergarten">
-            <figcaption>Our kindergarten</figcaption>
+            <figcaption data-i18n="gcap_kind">Our kindergarten</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/kids-and-kites.jpg" alt="A creative classroom activity with kites">
-            <figcaption>Creative classroom activity</figcaption>
+            <figcaption data-i18n="gcap_kites">Creative classroom activity</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/easter.jpg" alt="Celebrating Easter">
-            <figcaption>Easter celebrations</figcaption>
+            <figcaption data-i18n="gcap_easter_v2">Easter celebrations</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/christmas-pageant.jpg" alt="The kindergarten Christmas pageant">
-            <figcaption>Kindergarten Christmas pageant</figcaption>
+            <figcaption data-i18n="gcap_pageant_v2">Kindergarten Christmas pageant</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/christmas-2016a.jpg" alt="Christmas at AES">
-            <figcaption>Christmas at AES</figcaption>
+            <figcaption data-i18n="gcap_xmas_a">Christmas at AES</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/christmas-2016b.jpg" alt="Christmas celebrations">
-            <figcaption>Christmas celebrations</figcaption>
+            <figcaption data-i18n="gcap_xmas_b">Christmas celebrations</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/blue-day.jpg" alt="Blue Day fun">
-            <figcaption>Blue Day fun</figcaption>
+            <figcaption data-i18n="gcap_blueday_v2">Blue Day fun</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/grade-two.jpg" alt="Second grade class">
-            <figcaption>Second grade</figcaption>
+            <figcaption data-i18n="gcap_grade2_v2">Second grade</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/grade-three.jpg" alt="Third grade class">
-            <figcaption>Third grade</figcaption>
+            <figcaption data-i18n="gcap_grade3">Third grade</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/second-grade.jpg" alt="A second grade class at work">
-            <figcaption>A class at work</figcaption>
+            <figcaption data-i18n="gcap_work">A class at work</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/classroom-1.jpg" alt="Inside an AES classroom">
-            <figcaption>Inside the classroom</figcaption>
+            <figcaption data-i18n="gcap_classroom">Inside the classroom</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/classroom-2.jpg" alt="Learning together">
-            <figcaption>Learning together</figcaption>
+            <figcaption data-i18n="gcap_learning">Learning together</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/classroom-3.jpg" alt="A moment in class">
-            <figcaption>A moment in class</figcaption>
+            <figcaption data-i18n="gcap_moment">A moment in class</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/petra.jpg" alt="Students on a trip to Petra">
-            <figcaption>A class trip to Petra</figcaption>
+            <figcaption data-i18n="gcap_petra">A class trip to Petra</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/ajlun-trip.jpg" alt="Students on a school trip to Ajlun">
-            <figcaption>A school trip to Ajlun</figcaption>
+            <figcaption data-i18n="gcap_ajlun_v2">A school trip to Ajlun</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/choir-dead-sea.jpg" alt="The AES choir at the Dead Sea">
-            <figcaption>The AES choir at the Dead Sea</figcaption>
+            <figcaption data-i18n="gcap_choir_v2">The AES choir at the Dead Sea</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/choristers.jpg" alt="Choir rehearsal">
-            <figcaption>Choir rehearsal</figcaption>
+            <figcaption data-i18n="gcap_rehearsal">Choir rehearsal</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/zumba.jpg" alt="Students enjoying a Zumba class">
-            <figcaption>Zumba class</figcaption>
+            <figcaption data-i18n="gcap_zumba_v2">Zumba class</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/clown-show.jpg" alt="A clown show at school">
-            <figcaption>A clown show visits school</figcaption>
+            <figcaption data-i18n="gcap_clown">A clown show visits school</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/german-visitors.jpg" alt="Guests from Germany at AES">
-            <figcaption>Guests from Germany</figcaption>
+            <figcaption data-i18n="gcap_germany">Guests from Germany</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/gunter-visit.jpg" alt="A visit from Gunter's group">
-            <figcaption>Friends from abroad</figcaption>
+            <figcaption data-i18n="gcap_abroad">Friends from abroad</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/guest-visit.jpg" alt="Visitors meeting students">
-            <figcaption>Visitors meeting students</figcaption>
+            <figcaption data-i18n="gcap_visitors">Visitors meeting students</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/ministry-visit.jpg" alt="Visit from the Ministry of Education">
-            <figcaption>Visit from the Ministry of Education</figcaption>
+            <figcaption data-i18n="gcap_ministry">Visit from the Ministry of Education</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/solar-panels.jpg" alt="Our solar panels">
-            <figcaption>Our solar panels</figcaption>
+            <figcaption data-i18n="gcap_solar">Our solar panels</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/zero-project.jpg" alt="The Zero-Project award">
-            <figcaption>Zero-Project award</figcaption>
+            <figcaption data-i18n="gcap_zero">Zero-Project award</figcaption>
           </figure>
           <figure class="gallery-item">
             <img src="images/christmas-2016c.jpg" alt="Christmas evening at AES">
-            <figcaption>Christmas evening</figcaption>
+            <figcaption data-i18n="gcap_xmas_eve">Christmas evening</figcaption>
           </figure>
         </div>
       </div>
@@ -246,23 +261,23 @@
     <!-- CTA -->
     <section class="cta-band bg-easter">
       <div class="container">
-        <p class="eyebrow">Stay Connected</p>
-        <h2>More moments, live from Irbid</h2>
+        <p class="eyebrow" data-i18n="cta_connected_eyebrow">Stay Connected</p>
+        <h2 data-i18n="cta_connected_h2">More moments, live from Irbid</h2>
         <p class="lede">Follow our Facebook page for the very latest photos and videos straight from
           the school.</p>
         <div class="cta-actions">
-          <a class="btn btn-accent" href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer">Follow on Facebook</a>
-          <a class="btn btn-outline" href="contact.html">Visit the school</a>
+          <a class="btn btn-accent" href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer" data-i18n="btn_fb_follow">Follow on Facebook</a>
+          <a class="btn btn-outline" href="contact.html" data-i18n="btn_visit">Visit the school</a>
         </div>
       </div>
     </section>
   </main>
 
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
-    <button class="lb-btn lb-close" type="button" aria-label="Close viewer">&times;</button>
-    <button class="lb-btn lb-prev" type="button" aria-label="Previous photo">&lsaquo;</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" data-i18n-label="aria_lb_dialog">
+    <button class="lb-btn lb-close" type="button" aria-label="Close viewer" data-i18n-label="aria_lb_close">&times;</button>
+    <button class="lb-btn lb-prev" type="button" aria-label="Previous photo" data-i18n-label="aria_lb_prev">&lsaquo;</button>
     <img class="lb-img" src="" alt="">
-    <button class="lb-btn lb-next" type="button" aria-label="Next photo">&rsaquo;</button>
+    <button class="lb-btn lb-next" type="button" aria-label="Next photo" data-i18n-label="aria_lb_next">&rsaquo;</button>
     <p class="lightbox-caption lb-caption"></p>
   </div>
 
@@ -271,36 +286,36 @@
       <div class="footer-cols">
         <div class="footer-col footer-brand">
           <img src="images/logo.png" alt="Arab Episcopal School">
-          <p>Blind, low-vision and sighted students learning together — the only school of its kind in Jordan.</p>
+          <p data-i18n="footer_tagline">Blind, low-vision and sighted students learning together — the only school of its kind in Jordan.</p>
           <div class="footer-social">
             <a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
             <a href="https://www.youtube.com/watch?v=LhKx57SuCsM" target="_blank" rel="noopener noreferrer" aria-label="YouTube video tour">&#9656;</a>
           </div>
         </div>
         <div class="footer-col">
-          <h4>Explore</h4>
+          <h4 data-i18n="footer_explore">Explore</h4>
           <ul>
-            <li><a href="about.html">About AES</a></li>
-            <li><a href="mission.html">Mission &amp; Values</a></li>
-            <li><a href="divisions.html">Divisions</a></li>
-            <li><a href="admission.html">Admissions</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html" data-i18n="nav_about">About AES</a></li>
+            <li><a href="mission.html" data-i18n="nav_mission">Mission &amp; Values</a></li>
+            <li><a href="divisions.html" data-i18n="divisions_tag">Divisions</a></li>
+            <li><a href="admission.html" data-i18n="nav_admissions">Admissions</a></li>
+            <li><a href="gallery.html" data-i18n="footer_gallery">Gallery</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Get Involved</h4>
+          <h4 data-i18n="nav_involved">Get Involved</h4>
           <ul>
-            <li><a href="admission.html#donate">Donate</a></li>
-            <li><a href="admission.html#volunteer">Volunteer</a></li>
-            <li><a href="admission.html#involved">Resources &amp; Tools</a></li>
-            <li><a href="contact.html">Visit</a></li>
+            <li><a href="admission.html#donate" data-i18n="menu_donate">Donate</a></li>
+            <li><a href="admission.html#volunteer" data-i18n="menu_volunteer">Volunteer</a></li>
+            <li><a href="admission.html#involved" data-i18n="footer_resources">Resources &amp; Tools</a></li>
+            <li><a href="contact.html" data-i18n="top_visit">Visit</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span id="year">2026</span> Arab Episcopal School. All rights reserved.</p>
+        <p data-i18n="footer_rights">&copy; <span id="year">2026</span> Arab Episcopal School. All rights reserved.</p>
         <p>P.O. Box 765, Irbid 21110, Jordan &middot; <a href="tel:+96227275572">+962 2 727 5572</a></p>
-        <p><a class="staff-login" href="admin/">Staff login</a></p>
+        <p><a class="staff-login" href="admin/" data-i18n="footer_staff">Staff login</a></p>
       </div>
     </div>
   </footer>

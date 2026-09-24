@@ -38,11 +38,13 @@ window.AES = {
 
   announcement: {
     /* Sticky bar shown at the very top of public pages when enabled.
+       Provide one entry per language (en / ar / de). Set enabled=false to hide.
        Edit the text/href in the Staff Area -> Guide tab, then paste the
        generated snippet into this file and re-deploy. */
     enabled: false,
-    text: '',
-    href: ''
+    en: { text: '', href: '' },
+    ar: { text: '', href: '' },
+    de: { text: '', href: '' }
   },
 
   /* Pages scanned by the Staff Area "Site Health" audit */

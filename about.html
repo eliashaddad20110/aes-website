@@ -15,13 +15,28 @@
   <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700;800;900&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/i18n.js" defer></script>
   <script src="js/config.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link" href="#main" data-i18n="skip_main">Skip to main content</a>
+
+  <div class="aes-toolbar">
+    <div class="aes-toolbar-inner container">
+      <div class="aes-lang" role="group" aria-label="Choose language">
+        <button type="button" class="aes-lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="aes-lang-btn" data-lang="ar" aria-pressed="false">AR</button>
+        <button type="button" class="aes-lang-btn" data-lang="de" aria-pressed="false">DE</button>
+      </div>
+      <div class="aes-fs" role="group" aria-label="Text size">
+        <button type="button" class="aes-fs-btn" id="fsDown" aria-label="Decrease text size">A&minus;</button>
+        <button type="button" class="aes-fs-btn" id="fsUp" aria-label="Increase text size">A+</button>
+      </div>
+    </div>
+  </div>
 
   <header class="site-header" id="top">
     <div class="container header-inner">
@@ -29,15 +44,15 @@
         <img src="images/logo.png" alt="">
         <span class="brand-name">
           <strong>Arab Episcopal School</strong>
-          <small>Irbid &middot; Jordan</small>
+          <small data-i18n="brand_sub">Irbid &middot; Jordan</small>
         </span>
       </a>
       <div class="header-toplinks">
         <ul>
-          <li><a href="admission.html">Inquire</a></li>
-          <li><a href="contact.html">Visit</a></li>
-          <li><a href="gallery.html#video">Videos</a></li>
-          <li><a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+          <li><a href="admission.html" data-i18n="top_inquire">Inquire</a></li>
+          <li><a href="contact.html" data-i18n="top_visit">Visit</a></li>
+          <li><a href="gallery.html#video" data-i18n="top_videos">Videos</a></li>
+          <li><a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer" data-i18n="top_facebook">Facebook</a></li>
         </ul>
       </div>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="menuOverlay" aria-label="Open menu">
@@ -52,39 +67,39 @@
     <div class="menu-overlay-head">
       <span class="brand-name">
         <strong>Arab Episcopal School</strong>
-        <small>Irbid &middot; Jordan</small>
+        <small data-i18n="brand_sub">Irbid &middot; Jordan</small>
       </span>
       <button class="menu-close" id="menuClose" type="button" aria-label="Close menu">&times;</button>
     </div>
     <div class="menu-cols">
       <div class="menu-col">
-        <h4 class="menu-col-title">We Believe</h4>
+        <h4 class="menu-col-title" data-i18n="menu_col_believe">We Believe</h4>
         <ul>
-          <li><a href="about.html">About AES</a></li>
-          <li><a href="mission.html">Mission &amp; Values</a></li>
-          <li><a href="admission.html">Admissions</a></li>
-          <li><a href="admission.html#involved">Get Involved</a></li>
-          <li><a href="gallery.html">Life at AES</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html" data-i18n="nav_about">About AES</a></li>
+          <li><a href="mission.html" data-i18n="nav_mission">Mission &amp; Values</a></li>
+          <li><a href="admission.html" data-i18n="nav_admissions">Admissions</a></li>
+          <li><a href="admission.html#involved" data-i18n="nav_involved">Get Involved</a></li>
+          <li><a href="gallery.html" data-i18n="nav_life">Life at AES</a></li>
+          <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
         </ul>
       </div>
       <div class="menu-col">
-        <h4 class="menu-col-title">Divisions</h4>
+        <h4 class="menu-col-title" data-i18n="menu_col_div">Divisions</h4>
         <ul>
-          <li><a href="divisions.html#kindergarten">Kindergarten</a></li>
-          <li><a href="divisions.html#elementary">Elementary School</a></li>
-          <li><a href="divisions.html#secondary">Middle &amp; Secondary</a></li>
-          <li><a href="divisions.html#support">Vision Support Program</a></li>
+          <li><a href="divisions.html#kindergarten" data-i18n="menu_div_kind">Kindergarten</a></li>
+          <li><a href="divisions.html#elementary" data-i18n="menu_div_elem">Elementary School</a></li>
+          <li><a href="divisions.html#secondary" data-i18n="menu_div_sec">Middle &amp; Secondary</a></li>
+          <li><a href="divisions.html#support" data-i18n="menu_div_support">Vision Support Program</a></li>
         </ul>
       </div>
       <div class="menu-col">
-        <h4 class="menu-col-title">Quick Links</h4>
+        <h4 class="menu-col-title" data-i18n="menu_col_quick">Quick Links</h4>
         <ul>
-          <li><a href="gallery.html#video">Video Tour</a></li>
-          <li><a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-          <li><a href="admission.html#donate">Donate</a></li>
-          <li><a href="admission.html#volunteer">Volunteer</a></li>
-          <li><a href="mission.html">Our Mission</a></li>
+          <li><a href="gallery.html#video" data-i18n="menu_video">Video Tour</a></li>
+          <li><a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer" data-i18n="top_facebook">Facebook</a></li>
+          <li><a href="admission.html#donate" data-i18n="menu_donate">Donate</a></li>
+          <li><a href="admission.html#volunteer" data-i18n="menu_volunteer">Volunteer</a></li>
+          <li><a href="mission.html" data-i18n="menu_mission">Our Mission</a></li>
         </ul>
       </div>
     </div>
@@ -93,9 +108,9 @@
   <main id="main">
     <section class="page-hero">
       <div class="container">
-        <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; About AES</p>
-        <p class="eyebrow">About AES</p>
-        <h1>A school founded on a simple belief</h1>
+        <p class="breadcrumb"><a href="index.html" data-i18n="bc_home">Home</a> &rsaquo; <span data-i18n="about_tag">About AES</span></p>
+        <p class="eyebrow" data-i18n="about_tag">About AES</p>
+        <h1 data-i18n="about_h1">A school founded on a simple belief</h1>
         <p class="sub">Every child deserves a real education — including the blind and visually
           impaired children that Jordan&rsquo;s other schools had no room for.</p>
       </div>
@@ -105,8 +120,8 @@
     <section class="section" aria-labelledby="history-title">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Our History</p>
-          <h2 id="history-title">From one kindergarten to a whole school</h2>
+          <p class="eyebrow" data-i18n="hist_eyebrow">Our History</p>
+          <h2 id="history-title" data-i18n="hist_h2">From one kindergarten to a whole school</h2>
         </div>
         <div class="two-col">
           <div class="prose">
@@ -130,9 +145,9 @@
               AES is the <strong>only school of its kind in Jordan</strong> that works to integrate
               sighted, low-vision and blind students.</p>
             <ul class="timeline">
-              <li><span class="t-year">2003</span><p>Founded as an integrative kindergarten in Irbid.</p></li>
-              <li><span class="t-year">2005</span><p>Elementary school begins with first grade.</p></li>
-              <li><span class="t-year">Today</span><p>17 blind, 17 low-vision and 141 sighted students — K&ndash;12.</p></li>
+              <li><span class="t-year">2003</span><p data-i18n="t2003_p">Founded as an integrative kindergarten in Irbid.</p></li>
+              <li><span class="t-year">2005</span><p data-i18n="t2005_p">Elementary school begins with first grade.</p></li>
+              <li><span class="t-year">Today</span><p data-i18n="tnow_p">17 blind, 17 low-vision and 141 sighted students — K&ndash;12.</p></li>
             </ul>
           </div>
         </div>
@@ -143,21 +158,21 @@
     <section class="section section-tint" aria-labelledby="community-title">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Our Community</p>
-          <h2 id="community-title">Growing up together</h2>
+          <p class="eyebrow" data-i18n="community_eyebrow">Our Community</p>
+          <h2 id="community-title" data-i18n="community_h2">Growing up together</h2>
         </div>
         <div class="photo-grid">
           <figure class="photo-item">
             <img src="images/kids-and-kites.jpg" alt="A creative classroom activity with kites">
-            <figcaption>Creative classroom activities</figcaption>
+            <figcaption data-i18n="cap_kites">Creative classroom activities</figcaption>
           </figure>
           <figure class="photo-item">
             <img src="images/grade-two.jpg" alt="A second grade class">
-            <figcaption>Second grade</figcaption>
+            <figcaption data-i18n="cap_grade2">Second grade</figcaption>
           </figure>
           <figure class="photo-item">
             <img src="images/easter.jpg" alt="Students celebrating Easter">
-            <figcaption>Celebrating Easter</figcaption>
+            <figcaption data-i18n="cap_easter_about">Celebrating Easter</figcaption>
           </figure>
         </div>
       </div>
@@ -171,14 +186,14 @@
           <figure><img src="images/solar-panels.jpg" alt="Solar panels at AES"></figure>
         </div>
         <div class="prose">
-          <p class="eyebrow">More than a School</p>
-          <h2 id="church-title">A presence of the Arab Episcopal Church</h2>
+          <p class="eyebrow" data-i18n="church_eyebrow">More than a School</p>
+          <h2 id="church-title" data-i18n="church_h2">A presence of the Arab Episcopal Church</h2>
           <p>AES serves northern Jordan as a presence of the Arab Episcopal Church — developing each
             student&rsquo;s academic capability as well as their character through peace education,
             respect for human rights, volunteer work and good stewardship of the environment.</p>
           <p>Our sustainability and community work has been recognised beyond the classroom, including
             the <strong>Zero-Project award</strong> for environmental innovation.</p>
-          <p><a class="btn btn-ghost" href="mission.html">Our mission &amp; values</a></p>
+          <p><a class="btn btn-ghost" href="mission.html" data-i18n="btn_missions">Our mission &amp; values</a></p>
         </div>
       </div>
     </section>
@@ -187,8 +202,8 @@
     <section class="section section-tint" aria-labelledby="leadership-title">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Leadership</p>
-          <h2 id="leadership-title">The people behind AES</h2>
+          <p class="eyebrow" data-i18n="leadership_eyebrow">Leadership</p>
+          <h2 id="leadership-title" data-i18n="lead_h2">The people behind AES</h2>
         </div>
         <div class="card-grid">
           <article class="card">
@@ -204,11 +219,11 @@
               for every child who walks through our gates.</p>
           </article>
           <article class="card">
-            <h3>Our teachers &amp; staff</h3>
-            <p class="role">The heart of the school</p>
+            <h3 data-i18n="lead_name_teachers">Our teachers &amp; staff</h3>
+            <p class="role" data-i18n="lead_role_heart">The heart of the school</p>
             <p>Teachers, vision specialists and support staff who make inclusion real in every
               classroom — and welcome visitors from Jordan and abroad alike.</p>
-            <p><a class="btn btn-ghost" href="admission.html#volunteer">Meet us / volunteer</a></p>
+            <p><a class="btn btn-ghost" href="admission.html#volunteer" data-i18n="btn_meet">Meet us / volunteer</a></p>
           </article>
         </div>
       </div>
@@ -217,13 +232,13 @@
     <!-- CTA -->
     <section class="cta-band bg-blue-day">
       <div class="container">
-        <p class="eyebrow">Keep Exploring</p>
-        <h2>Our mission, values &amp; programmes</h2>
+        <p class="eyebrow" data-i18n="cta_explore_eyebrow">Keep Exploring</p>
+        <h2 data-i18n="cta_explore_h2">Our mission, values &amp; programmes</h2>
         <p class="lede">From kindergarten to secondary — see how every aspect of our school lives out the
           vision of inclusion.</p>
         <div class="cta-actions">
-          <a class="btn btn-accent" href="mission.html">Mission &amp; values</a>
-          <a class="btn btn-outline" href="divisions.html">Explore the divisions</a>
+          <a class="btn btn-accent" href="mission.html" data-i18n="btn_missions">Mission &amp; values</a>
+          <a class="btn btn-outline" href="divisions.html" data-i18n="btn_divs2">Explore the divisions</a>
         </div>
       </div>
     </section>
@@ -234,36 +249,36 @@
       <div class="footer-cols">
         <div class="footer-col footer-brand">
           <img src="images/logo.png" alt="Arab Episcopal School">
-          <p>Blind, low-vision and sighted students learning together — the only school of its kind in Jordan.</p>
+          <p data-i18n="footer_tagline">Blind, low-vision and sighted students learning together — the only school of its kind in Jordan.</p>
           <div class="footer-social">
             <a href="https://www.facebook.com/arabepiscopalschool" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
             <a href="https://www.youtube.com/watch?v=LhKx57SuCsM" target="_blank" rel="noopener noreferrer" aria-label="YouTube video tour">&#9656;</a>
           </div>
         </div>
         <div class="footer-col">
-          <h4>Explore</h4>
+          <h4 data-i18n="footer_explore">Explore</h4>
           <ul>
-            <li><a href="about.html">About AES</a></li>
-            <li><a href="mission.html">Mission &amp; Values</a></li>
-            <li><a href="divisions.html">Divisions</a></li>
-            <li><a href="admission.html">Admissions</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html" data-i18n="nav_about">About AES</a></li>
+            <li><a href="mission.html" data-i18n="nav_mission">Mission &amp; Values</a></li>
+            <li><a href="divisions.html" data-i18n="divisions_tag">Divisions</a></li>
+            <li><a href="admission.html" data-i18n="nav_admissions">Admissions</a></li>
+            <li><a href="gallery.html" data-i18n="footer_gallery">Gallery</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Get Involved</h4>
+          <h4 data-i18n="nav_involved">Get Involved</h4>
           <ul>
-            <li><a href="admission.html#donate">Donate</a></li>
-            <li><a href="admission.html#volunteer">Volunteer</a></li>
-            <li><a href="admission.html#involved">Resources &amp; Tools</a></li>
-            <li><a href="contact.html">Visit</a></li>
+            <li><a href="admission.html#donate" data-i18n="menu_donate">Donate</a></li>
+            <li><a href="admission.html#volunteer" data-i18n="menu_volunteer">Volunteer</a></li>
+            <li><a href="admission.html#involved" data-i18n="footer_resources">Resources &amp; Tools</a></li>
+            <li><a href="contact.html" data-i18n="top_visit">Visit</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span id="year">2026</span> Arab Episcopal School. All rights reserved.</p>
+        <p data-i18n="footer_rights">&copy; <span id="year">2026</span> Arab Episcopal School. All rights reserved.</p>
         <p>P.O. Box 765, Irbid 21110, Jordan &middot; <a href="tel:+96227275572">+962 2 727 5572</a></p>
-        <p><a class="staff-login" href="admin/">Staff login</a></p>
+        <p><a class="staff-login" href="admin/" data-i18n="footer_staff">Staff login</a></p>
       </div>
     </div>
   </footer>

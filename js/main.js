@@ -30,23 +30,35 @@
   }
 
   /* ---------- Announcement bar ---------- */
+  var annEl = null;
+
+  function annForLang(lang) {
+    var o = ann[lang];
+    if (o && o.text) return { text: o.text, href: o.href || '' };
+    if (ann.en && ann.en.text) return { text: ann.en.text, href: ann.en.href || '' };
+    return { text: ann.text || '', href: ann.href || '' };
+  }
+
   function renderAnnouncement() {
-    var text = ann.text;
-    var href = ann.href;
-    var enabled = !!ann.enabled;
-    try {
-      var prev = JSON.parse(localStorage.getItem('aesAnnouncePreview') || 'null');
-      if (prev && prev.text) { text = prev.text; href = prev.href || ''; enabled = !!text; }
-    } catch (e) {}
-    if (!enabled || !text) return;
+    var prev = null;
+    try { prev = JSON.parse(localStorage.getItem('aesAnnouncePreview') || 'null'); } catch (e) {}
+    var usePreview = !!(prev && prev.text);
+    if (!usePreview && !ann.enabled) return;
+    var lang = 'en';
+    try { if (window.AES_I18N) lang = window.AES_I18N.lang(); } catch (e) {}
+    var data = usePreview ? { text: prev.text, href: prev.href || '' } : annForLang(lang);
+    if (!data.text) return;
+    if (annEl && annEl.parentNode) annEl.parentNode.removeChild(annEl);
     var el = document.createElement('a');
     el.className = 'announcement-bar';
-    el.textContent = text;
-    if (href) el.setAttribute('href', href);
+    el.textContent = data.text;
+    if (data.href) el.setAttribute('href', data.href);
     el.setAttribute('role', 'banner');
     document.body.insertBefore(el, document.body.firstChild);
+    annEl = el;
   }
   renderAnnouncement();
+  document.addEventListener('aes:langchange', renderAnnouncement);
 
   /* ---------- Hero slider ---------- */
   function buildHeroSlider(scope) {
@@ -189,21 +201,26 @@
 
     function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
 
+    function tr(key, vars) {
+      try { if (window.AES_I18N && typeof window.AES_I18N.t === 'function') return window.AES_I18N.t(key, vars); } catch (e) {}
+      return key;
+    }
+
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var gotcha = $('#fGotcha', contactForm);
       if (gotcha && gotcha.value) {
-        setStatus('Thanks! Your message has been received.', true);
+        setStatus(tr('status_gotcha'), true);
         contactForm.reset();
         return;
       }
       var name = $('#fName', contactForm).value.trim();
       var email = $('#fEmail', contactForm).value.trim();
       var msg = $('#fMsg', contactForm).value.trim();
-      if (!name) { setStatus('Please add your name.', false); $('#fName', contactForm).focus(); return; }
-      if (!isValidEmail(email)) { setStatus('Please add a valid email address.', false); $('#fEmail', contactForm).focus(); return; }
-      if (msg.length < 5) { setStatus('Please write a short message.', false); $('#fMsg', contactForm).focus(); return; }
-      if (msg.length > 5000) { setStatus('That message is too long (max 5000 characters).', false); return; }
+      if (!name) { setStatus(tr('status_need_name'), false); $('#fName', contactForm).focus(); return; }
+      if (!isValidEmail(email)) { setStatus(tr('status_bad_email'), false); $('#fEmail', contactForm).focus(); return; }
+      if (msg.length < 5) { setStatus(tr('status_msg_short'), false); $('#fMsg', contactForm).focus(); return; }
+      if (msg.length > 5000) { setStatus(tr('status_msg_long'), false); return; }
 
       var btn = contactForm.querySelector('button[type="submit"]');
       var entry = {
@@ -225,7 +242,7 @@
       }
 
       if (cfg.endpoint) {
-        setStatus('Sending…', null);
+        setStatus(tr('status_sending'), null);
         fetch(cfg.endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -234,25 +251,25 @@
           if (r.ok) {
             entry.status = 'sent via endpoint';
             logMessage(entry);
-            setStatus('Thank you, ' + name + '. Your message has been sent.', true);
+            setStatus(tr('status_sent', { name: name }), true);
             contactForm.reset();
           } else {
             entry.status = 'endpoint failed (mailto fallback)';
             logMessage(entry);
             openMailto();
-            setStatus('Your message could not be submitted online. Your email app is opening instead — just press send.', false);
+            setStatus(tr('status_endpoint_fail'), false);
           }
         }).catch(function () {
           entry.status = 'offline (mailto fallback)';
           logMessage(entry);
           openMailto();
-          setStatus('Your email app is opening with your message — just press send.', false);
+          setStatus(tr('status_offline'), false);
         });
       } else {
         entry.status = 'opened in email app';
         logMessage(entry);
         openMailto();
-        setStatus('Opening your email app with your message…', null);
+        setStatus(tr('status_opening'), null);
       }
     });
   }
