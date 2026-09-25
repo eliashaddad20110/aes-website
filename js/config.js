@@ -4,12 +4,14 @@
 
    SECURITY NOTE (client-side layer)
    --------------------------------
-   The login below is protected by a bcrypt hash embedded in this file. That
-   stops casual/accidental access and is safe to ship. It is NOT a substitute
-   for server-side protection: anyone with the source can, in theory, brute
-   force the hash. For real protection, the bundled /admin/.htaccess +
-   .htpasswd files guard the whole Staff Area at the web-server level on any
-   Apache/cPanel host. Keep both layers.
+   This file is served publicly on static hosts (e.g. GitHub Pages). The
+   bcrypt hash below is NOT a true access barrier there: anyone with the
+   source can extract it and brute-force it offline, and the session check
+   is browser-side. On GitHub Pages there is no server-side gate, so treat
+   the Staff Area as unauthenticated-min-plus. Real protection requires
+   hosting on Apache/cPanel where the bundled /admin/.htaccess + .htpasswd
+   guard the whole Staff Area at the web-server level. Keep both layers and
+   rotate this password whenever it may have been exposed.
    ========================================================================== */
 
 window.AES = {
@@ -18,7 +20,7 @@ window.AES = {
   admin: {
     /* Client-side login (CDN / localhost fallback layer) */
     username: 'Admin',
-    bcryptHash: '$2b$12$dMAROXkO7GKuyqe2wuj0g.ZNh5w5AIOzodQSjyIl5pBEkSA9kxPRu',
+    bcryptHash: '$2b$12$zHoHJW4xXmJximQtv7Gg5eRM8pzxB4HUFlUt4GkQfCv5UhZGbYMTi',
     sessionMinutes: 480,          /* idle timeout: 8 hours */
     maxAttempts: 5,               /* failed attempts before lockout */
     lockoutMinutes: 15,           /* lockout duration after max attempts */

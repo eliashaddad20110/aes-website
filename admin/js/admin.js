@@ -96,7 +96,7 @@
               '<input type="password" id="lPass" name="password" autocomplete="current-password" required></div>' +
             '<p class="login-error" id="loginError" role="alert" hidden></p>' +
             '<button class="btn btn-primary admin-btn-block" type="submit" id="loginBtn">Sign in</button>' +
-            '<p class="admin-muted admin-note">Protected by the server (Apache) and an additional login layer.</p>' +
+            '<p class="admin-muted admin-note">Authentication layer active. Server-level protection applies when this site is hosted on Apache (see the Security tab).</p>' +
           '</form>' +
         '</div>' +
       '</div>';
